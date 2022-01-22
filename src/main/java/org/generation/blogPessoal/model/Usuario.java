@@ -16,36 +16,52 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
-@Table(name = "tb_usuario")
+@Table(name = "tb_usuarios")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@NotNull(message = "O campo não pode ser vazio")
-	@Size(min = 4)
+
+	@NotNull(message = "O atributo Nome é Obrigatório!")
 	private String nome;
-	
-	@NotNull(message = "O campo não pode ser vazio")
-	@Email(message = "O atributo Usuário deve ser um email válido!")
+
+	@Schema(example = "email@email.com.br")
+	@NotNull(message = "O atributo Usuário é Obrigatório!")
+	@Email(message = "O atributo Usuário deve ser um email!")
 	private String usuario;
-	
-	@NotBlank(message = "O campo não pode ser vazio")
-	@Size(min = 4)
+
+	@NotBlank(message = "O atributo Senha é Obrigatória!")
+	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
 	private String senha;
 	
 	private String foto;
 	
+	private String tipo;
+	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
-	public String getFoto() {
-		return foto;
-	}
-	
 	/**
 	 * Construtor com atributos da Classe Usuario
 	 * 
@@ -58,6 +74,7 @@ public class Usuario {
 		this.usuario = usuario;
 		this.senha = senha;
 		
+		
 	}
 
 	/**
@@ -67,23 +84,6 @@ public class Usuario {
 	 */
 	public Usuario() { }
 	
-
-	public long getid() {
-		return id;
-	}
-	
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
-	public List<Postagem> getPostagem() {
-		return postagem;
-	}
-
-	public void setPostagem(List<Postagem> postagem) {
-		this.postagem = postagem;
-	}
 
 	public long getId() {
 		return id;
@@ -116,4 +116,13 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
+
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
+
 }

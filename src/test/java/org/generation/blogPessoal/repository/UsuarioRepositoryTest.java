@@ -34,6 +34,7 @@ public class UsuarioRepositoryTest {
         usuarioRepository.save(new Usuario(0L, "Paulo Antunes", "paulo@email.com.br", "13465278"));
 
 	}
+
 	@Test
 	@DisplayName("Retorna 1 usuario")
 	public void deveRetornarUmUsuario() {
@@ -41,7 +42,7 @@ public class UsuarioRepositoryTest {
 		Optional<Usuario> usuario = usuarioRepository.findByUsuario("joao@email.com.br");
 		assertTrue(usuario.get().getUsuario().equals("joao@email.com.br"));
 	}
-	
+
 	@Test
 	@DisplayName("Retorna 3 usuarios")
 	public void deveRetornarTresUsuarios() {
@@ -53,6 +54,5 @@ public class UsuarioRepositoryTest {
 		assertTrue(listaDeUsuarios.get(2).getNome().equals("Adriana da Silva"));
 		
 	}
-
 
 }
